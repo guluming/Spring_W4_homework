@@ -4,6 +4,7 @@ import com.sparta.spring_w4_homework.model.User;
 import com.sparta.spring_w4_homework.repository.UserRepository;
 import com.sparta.spring_w4_homework.requestdto.UserRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,11 +13,14 @@ import java.util.Optional;
 @Service
 public class UserService {
 
+    private final PasswordEncoder passwordEncoder;
+
     private final UserRepository userRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository){
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder){
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -61,17 +65,18 @@ public class UserService {
             //throw new IllegalArgumentException("비밀번호 재확인이 다릅니다.");
         }else{
             response = "회원가입이 완료 되었습니다.";
-            User user = userRepository.save(params.toEntity());
+
+            password = passwordEncoder.encode(params.getPassword());
+
+            User user = new User(username, password);
+            userRepository.save(user);
             return response;
         }
     }
 
-//    //회원로그인
-//    public String userlogin(Long id, MemberRequestDto params){
-//        User user = userRepository.findById(id).orElseThrow(() -> new NullPointerException("아이디가 존재 하지 않습니다."));
-//        if(!user.getPassword().equals(params.getPassword())){
-//            return "비밀번호가 틀렸습니다.";
-//        }
+    //회원로그인
+//    public String login(UserRequestDto params){
+//
 //        return "로그인에 성공했습니다.";
 //    }
 }
