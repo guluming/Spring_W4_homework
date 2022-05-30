@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+    <title>항해일지 상세 페이지 | 항해일지</title>
+    <meta property="og:title" content="나만의 항해 블로그"/>
+    <meta property="og:description" content="99일간 나의 항해일지를 작성하라!"/>
+    <meta property="og:image" content=""/>
+
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <style>
+
+        .background-header {
+            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('https://static.spartacodingclub.kr/media/main_carousel/xzp9hk1o96nbakca.png');
+            background-position: center;
+            background-size: cover;
+
+            position: fixed;
+            z-index: -1;
+            top: 0px;
+            width: 100%;
+            height: 428px;
+            background-color: #339af0;
+        }
+
+        .background-body {
+            position: fixed;
+            z-index: -1;
+            top: 428px;
+            height: 100%;
+            width: 100%;
+            background-color: #4ea93c;
+        }
+
+        .posts-box {
+
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 90vh;
+        }
+
+        .card {
+            width: 50%;
+        }
+
+        .card-content {
+            height: 500px;
+        }
+
+        .password {
+            position: absolute;
+            bottom: 60px;
+        }
+
+        .password > input {
+            position: absolute;
+            right: -600px;
+        }
+
+    </style>
+
+    <script>
+
+        function isValidpassword(password) {
+            if (password == '') {
+                alert('비밀번호를 입력해주세요');
+                return false;
+            }
+            if (password.trim().length > 10) {
+                alert('비밀번호는 공백 포함 10자 이하로 입력해주세요');
+                return false;
+            }
+            return true;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        $(document).ready(function () {
+            // HTML 문서를 로드할 때마다 실행합니다.
+            getNotice();
+        })
+
+        function getNotice() {
+            // 1. 기존 메모 내용을 지웁니다.
+            $('#posts-box').empty();
+
+            const id = [[ ${id}]];
+            // 2. 메모 목록을 불러와서 HTML로 붙입니다.
+            $.ajax({
+                type: 'GET',
+                url: `/api/noticeboards/${id}`,
+                success: function (response) {
+                    console.log(response);
+
+                    let id = response.id;
+                    let title = response.title;
+                    let contents = response.contents;
+                    let username = response.username;
+                    let modifiedAt = response.modifiedAt;
+
+                    let temphtml = `<div class="card">
+                                        <div class="card-content">
+                                            <div class="contents">
+                                                <p1 class="title is-3">제  목 : ${title}</p1><br><br>
+                                                <p2 class="subtitle is-5">작성자 : ${username}</p2><br><br>
+                                                 내  용 : ${contents}
+                                                <br><br>
+                                                <div class="password">
+                                                    <label>마지막 수정일 : ${modifiedAt}</label>
+                                                    <input id="${id}-password" placeholder="비밀번호"></input>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <footer class="card-footer">
+                                            <a href="/" class="card-footer-item">뒤로가기</a>
+                                            <a href="/board/edit/${id}" class="card-footer-item">수정</a>
+                                            <a href="#" onclick="deletenotice('${id}')" class="card-footer-item">삭제</a>
+                                        </footer>
+                                    </div>`
+                    // 2. #posts-box 에 HTML을 붙인다.
+                    $('#posts-box').append(temphtml);
+                }
+            })
+        }
+
+        function deletenotice() {
+
+            const id = [[ ${id}]];
+
+            let password = $(`#${id}-password`).val();
+
+            if (isValidpassword(password) == false) {
+                return;
+            }
+
+            let data = {'password': password};
+            // 1. DELETE /api/noticeboards/{id} 에 요청해서 게시글을 삭제합니다.
+            $.ajax({
+                type: "DELETE",
+                url: `/api/noticeboards/${id}`,
+                data: JSON.stringify(data),
+                contentType: "application/json", // JSON 형식으로 전달함을 알리기
+                success: function (response) {
+                    alert("항해일지 삭제가 완료되었습니다.");
+                    window.location.href = '/';
+                }
+            })
+        }
+
+    </script>
+
+</head>
+<body>
+
+<div class="background-header">
+
+</div>
+
+<div class="background-body">
+
+</div>
+
+<div id="posts-box" class="posts-box">
+
+    <div class="card">
+        <div class="card-content">
+            <div class="contents">
+                <p1 class="title is-3">여기에 제목</p1>
+                <br><br>
+                <p2 class="subtitle is-5">작성자 : 여기에 작성자</p2>
+                <br><br>
+                여기에 내용이 들어갑니다.여기에 내용이 들어갑니다.여기에 내용이 들어갑니다.여기에 내용이 들어갑니다.여기에 내용이 들어갑니다.여기에 내용이 들어갑니다.여기에 내용이 들어갑니다.
+                <br><br>
+                <label>마지막 수정일 : "여기에 날짜"</label>
+            </div>
+        </div>
+        <footer class="card-footer">
+            <a href="/" class="card-footer-item">뒤로가기</a>
+            <a href="#" class="card-footer-item">수정</a>
+            <a href="#" class="card-footer-item">삭제</a>
+        </footer>
+    </div>
+
+</div>
+</body>
+</html>
