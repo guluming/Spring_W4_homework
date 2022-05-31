@@ -1,10 +1,11 @@
 package com.sparta.spring_w4_homework.model;
 
-
 import com.sparta.spring_w4_homework.requestdto.UserRequestDto;
 import com.sparta.spring_w4_homework.utils.Timestamped;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -29,7 +30,7 @@ public class User extends Timestamped {
     public User(UserRequestDto params){
         username = params.getUsername();
         password = params.getPassword();
-        role = Role.USER; // 회원가입하는 사용자 권한 기본 USER (임시)
+        role = Role.USER; // 회원가입하는 사용자 권한 기본 USER
     }
 
     public void encryptPassword(PasswordEncoder passwordEncoder) {

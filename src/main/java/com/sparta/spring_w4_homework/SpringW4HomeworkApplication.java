@@ -11,5 +11,4 @@ public class SpringW4HomeworkApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringW4HomeworkApplication.class, args);
 	}
-
 }

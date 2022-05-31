@@ -1,6 +1,7 @@
 package com.sparta.spring_w4_homework.responsedto;
 
 import com.sparta.spring_w4_homework.model.Reply;
+
 import lombok.Getter;
 
 import java.time.LocalDateTime;

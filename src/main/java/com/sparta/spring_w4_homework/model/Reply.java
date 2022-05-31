@@ -2,8 +2,12 @@ package com.sparta.spring_w4_homework.model;
 
 import com.sparta.spring_w4_homework.requestdto.ReplyRequestDto;
 import com.sparta.spring_w4_homework.utils.Timestamped;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -24,7 +28,9 @@ public class Reply extends Timestamped {
     private Long boardid;
     @Column(nullable = false)
     private String username;
+    @CreatedDate
     private LocalDateTime createdAt;
+    @LastModifiedDate
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
     public Reply(String reply, Long boardid, String username){

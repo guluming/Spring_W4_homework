@@ -4,11 +4,12 @@ import com.sparta.spring_w4_homework.model.Board;
 import com.sparta.spring_w4_homework.repository.BoardRepository;
 import com.sparta.spring_w4_homework.requestdto.BoardRequestDto;
 import com.sparta.spring_w4_homework.responsedto.BoardResponseDto;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +17,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class BoardService {
-
     private final BoardRepository boardRepository;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -52,6 +52,7 @@ public class BoardService {
         if (!board.getUsername().equals(userid)) {
             return "게시글 작성자가 아닙니다.";
         }
+
         if (params.getContentb().equals("")) {
             return "게시물 내용을 입력해주세요";
         }

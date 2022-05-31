@@ -5,6 +5,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationEn
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -20,6 +21,7 @@ public class CustomeBasicAuthenticationEntryPoint extends BasicAuthenticationEnt
         response.addHeader("WWW-Authenticate", "Basic realm=" + super.getRealmName());
 
         PrintWriter writer = response.getWriter();
+
 //        writer.println("HTTP Status 401 - " + authException.getMessage());
         writer.println("로그인이 필요합니다.");
     }
@@ -29,5 +31,4 @@ public class CustomeBasicAuthenticationEntryPoint extends BasicAuthenticationEnt
         super.setRealmName("pilseong");
         super.afterPropertiesSet();
     }
-
 }

@@ -2,14 +2,15 @@ package com.sparta.spring_w4_homework.security;
 
 import com.sparta.spring_w4_homework.model.Role;
 import com.sparta.spring_w4_homework.model.User;
+
 import lombok.AllArgsConstructor;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 
 @AllArgsConstructor
 public class UserDetailsImpl implements UserDetails {
@@ -20,7 +21,9 @@ public class UserDetailsImpl implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Role role = user.getRole();
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(ROLE_PREFIX + role.toString());
+
         Collection<GrantedAuthority> authorities = new ArrayList<>(); //List인 이유 : 여러개의 권한을 가질 수 있다
+
         authorities.add(authority);
 
         return authorities;

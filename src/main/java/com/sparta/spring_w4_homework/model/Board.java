@@ -2,9 +2,10 @@ package com.sparta.spring_w4_homework.model;
 
 import com.sparta.spring_w4_homework.requestdto.BoardRequestDto;
 import com.sparta.spring_w4_homework.utils.Timestamped;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -14,7 +15,6 @@ import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
-@Setter
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 public class Board extends Timestamped {

@@ -3,7 +3,6 @@ package com.sparta.spring_w4_homework.requestdto;
 import lombok.Getter;
 import lombok.Setter;
 
-//@NoArgsConstructor
 @Getter
 @Setter
 public class UserRequestDto {

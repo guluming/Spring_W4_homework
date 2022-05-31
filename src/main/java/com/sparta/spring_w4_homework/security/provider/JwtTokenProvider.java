@@ -7,10 +7,11 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
 import lombok.RequiredArgsConstructor;
 import lombok.val;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,10 +25,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 @Component
 public class JwtTokenProvider {
 
+    // jwt 시크릿 키
     private String secretKey = "webfirewood";
 
     // 토큰 유효시간 30분
@@ -35,17 +37,10 @@ public class JwtTokenProvider {
 
     private final UserDetailsServiceImpl userDetailsService;
 
-    @Autowired
-    public JwtTokenProvider(UserDetailsServiceImpl userDetailsService){
-        this.userDetailsService = userDetailsService;
-    }
-
-//    @Value("secret")
-//    private String secretKey;
-
-    // 토큰 유효시간 30분
-    //@Value("expiration")
-    //private String tokenValidTime;
+//    @Autowired
+//    public JwtTokenProvider(UserDetailsServiceImpl userDetailsService){
+//        this.userDetailsService = userDetailsService;
+//    }
 
     // 객체 초기화, secretKey를 Base64로 인코딩
     @PostConstruct
@@ -64,11 +59,11 @@ public class JwtTokenProvider {
             claims.put("Role","USER");
         }
 
-        val myName = userDetails.getUsername();
-        claims.put("myName", myName);
+        val userName = userDetails.getUsername();
+        claims.put("UserName", userName);
 
-        val userId = userDetails.getId();
-        claims.put("userid", userId);
+//        val userId = userDetails.getId();
+//        claims.put("userid", userId);
 
         return doGenerateToken(claims, userDetails.getUsername());
     }
