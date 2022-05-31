@@ -1,7 +1,7 @@
 package com.sparta.spring_w4_homework.model;
 
+import com.sparta.spring_w4_homework.requestdto.BoardRequestDto;
 import com.sparta.spring_w4_homework.utils.Timestamped;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -25,25 +25,23 @@ public class Board extends Timestamped {
     @Column(nullable = false)
     private String contentb;
     @Column(nullable = false)
-    private String memberid;
+    private Long userid;
     @CreatedDate
     private LocalDateTime createdAt;
     @LastModifiedDate
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
-    @Builder
-    public Board(String title, String contentb, String memberid, LocalDateTime createAt, LocalDateTime modifiedAt) {
-        this.title = title;
-        this.contentb = contentb;
-        this.memberid = memberid;
-        this.createdAt = createAt;
-        this.modifiedAt = modifiedAt;
+    public Board(BoardRequestDto params) {
+        this.userid = params.getUserid();
+        this.title = params.getTitle();
+        this.contentb = params.getContentb();
+//        this.createdAt = createAt;
+//        this.modifiedAt = modifiedAt;
     }
 
     public void update(String title, String contentb){
         this.title = title;
         this.contentb = contentb;
         this.modifiedAt = LocalDateTime.now();
-//        this.modifiedDate = LocalDateTime.now();
     }
 }
