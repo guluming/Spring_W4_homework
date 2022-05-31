@@ -12,7 +12,6 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-//@RequestMapping("/api")
 public class BoardApiController {
 
     private final BoardService boardService;
@@ -51,7 +50,8 @@ public class BoardApiController {
 
     //게시글 삭제
     @DeleteMapping("/boards/delete/{id}")
-    public String delete(@PathVariable Long id){
+    public String delete(@PathVariable Long id
+                        ){
         return boardService.boarddelete(id);
     }
 }

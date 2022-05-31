@@ -24,10 +24,8 @@ public class BoardService {
     //게시글 저장
     @Transactional
     public String boardsave(BoardRequestDto params){
-//        Board board = boardRepository.save(params);
         Board board = new Board(params);
         boardRepository.save(board);
-
         return "게시글이 저장되었습니다";
     }
 
