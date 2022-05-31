@@ -11,7 +11,7 @@ public class BoardResponseDto {
     private Long id;
     private String title;
     private String contentb;
-    private String memberid;
+    private Long userid;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
@@ -19,7 +19,7 @@ public class BoardResponseDto {
         this.id = entity.getId();
         this.title = entity.getTitle();
         this.contentb = entity.getContentb();
-        this.memberid = entity.getMemberid();
+        this.userid = entity.getUserid();
         this.createdAt =entity.getCreatedAt();
         this.modifiedAt = entity.getModifiedAt();
     }

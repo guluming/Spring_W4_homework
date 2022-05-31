@@ -13,19 +13,17 @@ import java.time.LocalDateTime;
 public class BoardRequestDto {
     private String title;
     private String contentb;
-    private String memberid;
-    @CreatedDate
-    private LocalDateTime createdAt;
+    private Long userid;
     @LastModifiedDate
     private LocalDateTime modifiedAt;
 
-    public Board toEntity(){
-        return Board.builder()
-                .title(title)
-                .contentb(contentb)
-                .memberid(memberid)
-                .createAt(createdAt)
-                .modifiedAt(modifiedAt)
-                .build();
-    }
+//    public Board toEntity(){
+//        return Board.builder()
+//                .title(title)
+//                .contentb(contentb)
+////                .userid(userid)
+//                .createAt(createdAt)
+//                .modifiedAt(modifiedAt)
+//                .build();
+//    }
 }
