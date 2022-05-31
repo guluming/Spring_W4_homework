@@ -24,7 +24,10 @@ public class BoardService {
     //게시글 저장
     @Transactional
     public String boardsave(BoardRequestDto params){
-        Board board = boardRepository.save(params.toEntity());
+//        Board board = boardRepository.save(params);
+        Board board = new Board(params);
+        boardRepository.save(board);
+
         return "게시글이 저장되었습니다";
     }
 
@@ -41,13 +44,15 @@ public class BoardService {
         return new BoardResponseDto(entity);
     }
 
+    //게시글 수정
     @Transactional
     public String boardupdate(Long id, BoardRequestDto params){
-        Board entity = boardRepository.findById(id).orElseThrow(() -> new NullPointerException("존재하지 않는 게시글 입니다."));
-        entity.update(params.getTitle(), params.getContentb());
-        return "게시글이 수정 되었습니다.";
+        Board board = boardRepository.findById(id).orElseThrow(() -> new NullPointerException("존재하지 않는 게시글 입니다."));
+            board.update(params.getTitle(), params.getContentb());
+            return "게시글이 수정 되었습니다.";
     }
 
+    //게시글 삭제
     @Transactional
     public String boarddelete(Long id){
         boardRepository.deleteById(id);
