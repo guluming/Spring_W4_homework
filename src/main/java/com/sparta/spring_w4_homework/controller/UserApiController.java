@@ -3,18 +3,11 @@ package com.sparta.spring_w4_homework.controller;
 import com.sparta.spring_w4_homework.requestdto.JwtRequestDto;
 import com.sparta.spring_w4_homework.requestdto.UserRequestDto;
 import com.sparta.spring_w4_homework.responsedto.JwtResponseDto;
-import com.sparta.spring_w4_homework.security.UserDetailsImpl;
 import com.sparta.spring_w4_homework.service.UserService;
-import lombok.AllArgsConstructor;
-import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
 
 //@AllArgsConstructor
 @RestController
@@ -29,20 +22,6 @@ public class UserApiController {
     }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    //중복 로그인 검사
-//    @GetMapping("/api/usercheck")
-//    public void usercheck(){
-//
-//    }
-
-    //회원가입
-//    @PostMapping("/user/signup")
-//    public String signup(UserRequestDto params){
-////        userService.signup(params);
-////        return "redirect:/user/login";
-//        return userService.signup(params);
-//    }
 
     //회원가입
     @PostMapping(value = "/signup", produces = MediaType.APPLICATION_JSON_VALUE)
