@@ -5,7 +5,9 @@ import com.sparta.spring_w4_homework.responsedto.BoardResponseDto;
 import com.sparta.spring_w4_homework.security.UserDetailsImpl;
 import com.sparta.spring_w4_homework.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +23,6 @@ public class BoardApiController {
     //게시글 저장
     @PostMapping("/boards/save")
     public String save(@RequestBody BoardRequestDto params){
-//        Long userid = userDetails.getUser().getId();
         return boardService.boardsave(params);
     }
 

@@ -1,5 +1,6 @@
 package com.sparta.spring_w4_homework.controller;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,23 +33,4 @@ public class HomeController {
         System.out.println("=========================");
         return "dashboard";
     }
-//
-//    @GetMapping("/admin")
-//    public String admin() {
-//        return "admin";
-//    }
-
-//    @PostMapping("/member/test")
-//    public Map userResponseTest() {
-//        Map<String, String> result = new HashMap<>();
-//        result.put("result","user ok");
-//        return result;
-//    }
-//
-//    @PostMapping("/admin/test")
-//    public Map adminResponseTest() {
-//        Map<String, String> result = new HashMap<>();
-//        result.put("result","admin ok");
-//        return result;
-//    }
 }

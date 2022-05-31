@@ -93,9 +93,9 @@ public class UserService {
 
     //회원로그인
     public JwtResponseDto login(JwtRequestDto params) throws Exception {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(params.getUsername(), params.getPassword()));
-        return createJwtToken(authentication);
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(params.getUsername(), params.getPassword()));
+            return createJwtToken(authentication);
     }
 
     //JWT 토큰 생성기
