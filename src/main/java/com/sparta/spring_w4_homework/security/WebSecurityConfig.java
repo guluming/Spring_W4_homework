@@ -2,10 +2,10 @@ package com.sparta.spring_w4_homework.security;
 
 import com.sparta.spring_w4_homework.security.filter.JwtAuthenticationFilter;
 import com.sparta.spring_w4_homework.security.provider.JwtTokenProvider;
-import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -13,7 +13,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-//@AllArgsConstructor
+//@EnableGlobalMethodSecurity(securedEnabled = true)
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -73,8 +73,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(authenticationEntryPoint())
+                .and()
                 // JwtAuthenticationFilter 는 UsernamePasswordAuthenticationFilter 전에 넣음
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Bean
+    public CustomeBasicAuthenticationEntryPoint authenticationEntryPoint() {
+        return new CustomeBasicAuthenticationEntryPoint();
     }
 
     @Override
