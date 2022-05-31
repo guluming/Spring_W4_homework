@@ -22,8 +22,11 @@ public class ReplyService {
 
     //댓글 저장
     @Transactional
-    public String replysave(ReplyRequestDto params){
-        Reply reply = new Reply(params);
+    public String replysave(ReplyRequestDto params, String userid){
+        if(params.getReply().equals("")){
+            return "댓글 내용을 입력해주세요";
+        }
+        Reply reply = new Reply(params.getReply(), params.getBoardid(), userid);
         replyRepository.save(reply);
         return "댓글이 작성 되었습니다.";
     }
