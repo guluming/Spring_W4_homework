@@ -2,25 +2,42 @@ package com.sparta.spring_w4_homework.service;
 
 import com.sparta.spring_w4_homework.model.User;
 import com.sparta.spring_w4_homework.repository.UserRepository;
+import com.sparta.spring_w4_homework.requestdto.JwtRequestDto;
 import com.sparta.spring_w4_homework.requestdto.UserRequestDto;
+import com.sparta.spring_w4_homework.responsedto.JwtResponseDto;
+import com.sparta.spring_w4_homework.security.UserDetailsImpl;
+import com.sparta.spring_w4_homework.security.provider.JwtTokenProvider;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
+import java.util.Map;
 import java.util.Optional;
 
+@Transactional
 @Service
+//@AllArgsConstructor
 public class UserService {
 
     private final PasswordEncoder passwordEncoder;
-
     private final UserRepository userRepository;
+    private final AuthenticationManager authenticationManager;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder){
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider){
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.authenticationManager = authenticationManager;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -66,17 +83,25 @@ public class UserService {
         }else{
             response = "회원가입이 완료 되었습니다.";
 
-            password = passwordEncoder.encode(params.getPassword());
+            User user = new User(params);
+            user.encryptPassword(passwordEncoder);
 
-            User user = new User(username, password);
             userRepository.save(user);
             return response;
         }
     }
 
     //회원로그인
-//    public String login(UserRequestDto params){
-//
-//        return "로그인에 성공했습니다.";
-//    }
+    public JwtResponseDto login(JwtRequestDto params) throws Exception {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(params.getUsername(), params.getPassword()));
+        return createJwtToken(authentication);
+    }
+
+    //JWT 토큰 생성기
+    private JwtResponseDto createJwtToken(Authentication authentication) {
+        UserDetailsImpl principal = (UserDetailsImpl) authentication.getPrincipal();
+        String token = jwtTokenProvider.generateToken(principal);
+        return new JwtResponseDto(token);
+    }
 }
