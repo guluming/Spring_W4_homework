@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 public class ReplyRequestDto {
     private String reply;
-    private Long userid;
+    private String username;
     private Long boardid;
     @LastModifiedDate
     private LocalDateTime modifiedAt;

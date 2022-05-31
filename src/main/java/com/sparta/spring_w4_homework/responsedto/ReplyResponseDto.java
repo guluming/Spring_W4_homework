@@ -10,7 +10,7 @@ public class ReplyResponseDto {
 
     private Long id;
     private String reply;
-    private Long userid;
+    private String username;
     private Long boardid;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
@@ -18,7 +18,7 @@ public class ReplyResponseDto {
     public ReplyResponseDto(Reply entity){
         this.id = entity.getId();
         this.reply = entity.getReply();
-        this.userid = entity.getUserid();
+        this.username = entity.getUsername();
         this.boardid = entity.getBoardid();
         this.createdAt = entity.getCreatedAt();
         this.modifiedAt = entity.getModifiedAt();
