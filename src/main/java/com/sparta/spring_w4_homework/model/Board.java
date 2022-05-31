@@ -35,8 +35,6 @@ public class Board extends Timestamped {
         this.userid = params.getUserid();
         this.title = params.getTitle();
         this.contentb = params.getContentb();
-//        this.createdAt = createAt;
-//        this.modifiedAt = modifiedAt;
     }
 
     public void update(String title, String contentb){

@@ -16,14 +16,4 @@ public class BoardRequestDto {
     private Long userid;
     @LastModifiedDate
     private LocalDateTime modifiedAt;
-
-//    public Board toEntity(){
-//        return Board.builder()
-//                .title(title)
-//                .contentb(contentb)
-////                .userid(userid)
-//                .createAt(createdAt)
-//                .modifiedAt(modifiedAt)
-//                .build();
-//    }
 }
