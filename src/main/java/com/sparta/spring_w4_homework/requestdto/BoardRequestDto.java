@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class BoardRequestDto {
     private String title;
     private String contentb;
-    private Long userid;
+    private String username;
     @LastModifiedDate
     private LocalDateTime modifiedAt;
 }

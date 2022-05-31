@@ -25,14 +25,14 @@ public class Board extends Timestamped {
     @Column(nullable = false)
     private String contentb;
     @Column(nullable = false)
-    private Long userid;
+    private String username;
     @CreatedDate
     private LocalDateTime createdAt;
     @LastModifiedDate
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
     public Board(BoardRequestDto params) {
-        this.userid = params.getUserid();
+        this.username = params.getUsername();
         this.title = params.getTitle();
         this.contentb = params.getContentb();
     }
