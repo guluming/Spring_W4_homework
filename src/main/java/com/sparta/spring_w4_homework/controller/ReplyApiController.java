@@ -4,6 +4,7 @@ import com.sparta.spring_w4_homework.requestdto.ReplyRequestDto;
 import com.sparta.spring_w4_homework.responsedto.ReplyResponseDto;
 import com.sparta.spring_w4_homework.service.ReplyService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +20,8 @@ public class ReplyApiController {
     //댓글 저장
     @PostMapping("/replys/save")
     public String save(@RequestBody ReplyRequestDto params){
-        return replyService.replysave(params);
+        String userid = SecurityContextHolder.getContext().getAuthentication().getName();
+        return replyService.replysave(params, userid);
     }
 
     //댓글 조회
