@@ -2,6 +2,7 @@ package com.sparta.spring_w4_homework.requestdto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
@@ -10,7 +11,6 @@ import java.time.LocalDateTime;
 @Getter
 public class ReplyRequestDto {
     private String reply;
-    private Long userid;
     private Long boardid;
     @LastModifiedDate
     private LocalDateTime modifiedAt;

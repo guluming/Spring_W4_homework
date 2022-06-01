@@ -1,9 +1,8 @@
 package com.sparta.spring_w4_homework.requestdto;
 
-import com.sparta.spring_w4_homework.model.Board;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
+
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
@@ -13,7 +12,6 @@ import java.time.LocalDateTime;
 public class BoardRequestDto {
     private String title;
     private String contentb;
-    private Long userid;
     @LastModifiedDate
     private LocalDateTime modifiedAt;
 }

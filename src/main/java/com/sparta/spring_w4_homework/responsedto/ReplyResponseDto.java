@@ -1,6 +1,7 @@
 package com.sparta.spring_w4_homework.responsedto;
 
 import com.sparta.spring_w4_homework.model.Reply;
+
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -10,7 +11,7 @@ public class ReplyResponseDto {
 
     private Long id;
     private String reply;
-    private Long userid;
+    private String userid;
     private Long boardid;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;

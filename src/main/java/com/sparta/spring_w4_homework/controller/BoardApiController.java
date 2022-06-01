@@ -2,10 +2,11 @@ package com.sparta.spring_w4_homework.controller;
 
 import com.sparta.spring_w4_homework.requestdto.BoardRequestDto;
 import com.sparta.spring_w4_homework.responsedto.BoardResponseDto;
-import com.sparta.spring_w4_homework.security.UserDetailsImpl;
 import com.sparta.spring_w4_homework.service.BoardService;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,8 +22,10 @@ public class BoardApiController {
     //게시글 저장
     @PostMapping("/boards/save")
     public String save(@RequestBody BoardRequestDto params){
-//        Long userid = userDetails.getUser().getId();
-        return boardService.boardsave(params);
+
+        String userid = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        return boardService.boardsave(params, userid);
     }
 
     //게시글 조회
@@ -39,19 +42,19 @@ public class BoardApiController {
 
     //게시글 수정
     @PatchMapping("/boards/edit/{id}")
-    public String update(@PathVariable Long id,
-                         @RequestBody BoardRequestDto params
-                         ){
+    public String update(@PathVariable Long id, @RequestBody BoardRequestDto params){
 
-//        Long userid = userDetails.getUser().getId();
+        String userid = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        return boardService.boardupdate(id, params);
+        return boardService.boardupdate(id, params, userid);
     }
 
     //게시글 삭제
     @DeleteMapping("/boards/delete/{id}")
-    public String delete(@PathVariable Long id
-                        ){
-        return boardService.boarddelete(id);
+    public String delete(@PathVariable Long id){
+
+        String userid = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        return boardService.boarddelete(id, userid);
     }
 }
