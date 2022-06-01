@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 public class BoardRequestDto {
     private String title;
     private String contentb;
-    private String username;
     @LastModifiedDate
     private LocalDateTime modifiedAt;
 }

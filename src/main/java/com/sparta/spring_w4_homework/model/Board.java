@@ -27,27 +27,21 @@ public class Board extends Timestamped {
     @Column(nullable = false)
     private String contentb;
     @Column(nullable = false)
-    private String username;
+    private String userid;
     @CreatedDate
     private LocalDateTime createdAt;
     @LastModifiedDate
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
-    public Board(String title, String contentb, String username) {
-        this.title = title;
-        this.contentb = contentb;
-        this.username = username;
-    }
-
-    public Board(BoardRequestDto params) {
-        this.username = params.getUsername();
+    public Board(BoardRequestDto params, String userid) {
         this.title = params.getTitle();
         this.contentb = params.getContentb();
+        this.userid = userid;
     }
 
-    public void update(String title, String contentb){
-        this.title = title;
-        this.contentb = contentb;
+    public void update(BoardRequestDto params){
+        this.title = params.getTitle();
+        this.contentb = params.getContentb();
         this.modifiedAt = LocalDateTime.now();
     }
 }

@@ -27,7 +27,7 @@ public class ReplyService {
         if(params.getReply().equals("")){
             return "댓글 내용을 입력해주세요";
         }
-        Reply reply = new Reply(params.getReply(), params.getBoardid(), userid);
+        Reply reply = new Reply(params, userid);
         replyRepository.save(reply);
         return "댓글이 작성 되었습니다.";
     }
@@ -43,7 +43,7 @@ public class ReplyService {
     @Transactional
     public String replyupdate(Long id, ReplyRequestDto params, String userid){
         Reply reply = replyRepository.findById(id).orElseThrow(() -> new NullPointerException("존재하지 않는 댓글 입니다."));
-        if (!reply.getUsername().equals(userid)) {
+        if (!reply.getUserid().equals(userid)) {
             return "댓글 작성자가 아닙니다.";
         }
 
@@ -58,7 +58,7 @@ public class ReplyService {
     @Transactional
     public String replydelete(Long id, String userid){
         Reply reply = replyRepository.findById(id).orElseThrow(() -> new NullPointerException("존재하지 않는 댓글 입니다."));
-        if (!reply.getUsername().equals(userid)) {
+        if (!reply.getUserid().equals(userid)) {
             return "댓글 작성자가 아닙니다.";
         }
         replyRepository.deleteById(id);

@@ -27,22 +27,16 @@ public class Reply extends Timestamped {
     @Column(nullable = false)
     private Long boardid;
     @Column(nullable = false)
-    private String username;
+    private String userid;
     @CreatedDate
     private LocalDateTime createdAt;
     @LastModifiedDate
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
-    public Reply(String reply, Long boardid, String username){
-        this.reply = reply;
-        this.boardid = boardid;
-        this.username = username;
-    }
-
-    public Reply(ReplyRequestDto params){
-        this.username = params.getUsername();
+    public Reply(ReplyRequestDto params, String userid){
         this.reply = params.getReply();
         this.boardid = params.getBoardid();
+        this.userid = userid;
     }
 
     public void update(String reply){

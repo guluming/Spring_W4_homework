@@ -27,7 +27,7 @@ public class BoardService {
         if (params.getContentb().equals("")) {
             return "게시물 내용을 입력해주세요";
         }
-        Board board = new Board(params.getTitle(), params.getContentb(), userid);
+        Board board = new Board(params, userid);
         boardRepository.save(board);
         return "게시글이 저장되었습니다";
     }
@@ -49,14 +49,14 @@ public class BoardService {
     @Transactional
     public String boardupdate(Long id, BoardRequestDto params, String userid) {
         Board board = boardRepository.findById(id).orElseThrow(() -> new NullPointerException("존재하지 않는 게시글 입니다."));
-        if (!board.getUsername().equals(userid)) {
+        if (!board.getUserid().equals(userid)) {
             return "게시글 작성자가 아닙니다.";
         }
 
         if (params.getContentb().equals("")) {
             return "게시물 내용을 입력해주세요";
         }
-        board.update(params.getTitle(), params.getContentb());
+        board.update(params);
         return "게시글이 수정 되었습니다.";
     }
 
@@ -64,7 +64,7 @@ public class BoardService {
     @Transactional
     public String boarddelete(Long id, String userid) {
         Board board = boardRepository.findById(id).orElseThrow(() -> new NullPointerException("존재하지 않는 게시글 입니다."));
-        if (!board.getUsername().equals(userid)) {
+        if (!board.getUserid().equals(userid)) {
             return "게시글 작성자가 아닙니다.";
         }
         boardRepository.deleteById(id);
