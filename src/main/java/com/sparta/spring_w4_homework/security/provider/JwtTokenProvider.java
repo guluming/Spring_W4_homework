@@ -74,7 +74,11 @@ public class JwtTokenProvider {
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
+
+                //토큰 만료 시간
                 .setExpiration(new Date(System.currentTimeMillis() + tokenValidTime))
+
+                //토큰 암호화
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
