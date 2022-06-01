@@ -43,50 +43,51 @@ public class UserService {
 
     //회원가입
     public String signup(UserRequestDto params){
-        String response = "";
+
         String username = params.getUsername();
         String password = params.getPassword();
         String passwordchk = params.getPasswordchk();
 
         Optional<User> found = userRepository.findByUsername(username);
-        if(username.equals("")){
-            response = "ID를 입력해 주세요.";
-            return response;
-            //throw new IllegalArgumentException("ID를 입력해 주세요.");
+
+        if(username == null){
+            return "ID를 입력해 주세요.";
+//            throw new IllegalArgumentException("ID를 입력해 주세요.");
+        }
+        else if(username.equals("")){
+            return "ID를 입력해 주세요.";
+//            throw new IllegalArgumentException("ID를 입력해 주세요.");
         }
         else if(!username.matches("^[a-zA-Z0-9]{3,20}$")){
-            response = "ID 형식을 확인해 주세요.";
-            return response;
+            return "ID 형식을 확인해 주세요.";
             //throw new IllegalArgumentException("ID 형식을 확인해 주세요.");
         }
         else if(found.isPresent()){
-            response = "이미 존재하는 ID 입니다.";
-            return response;
+            return "중복된 닉네임 입니다.";
             //throw new IllegalArgumentException("이미 존재하는 ID 입니다.");
         }
 
-        if(password.equals("")){
-            response = "비밀번호를 입력해 주세요.";
-            return response;
+        if(password == null){
+            return "비밀번호를 입력해 주세요.";
+            //throw new IllegalArgumentException("비밀번호를 입력해 주세요.");
+        }
+        else if(password.equals("")){
+            return "비밀번호를 입력해 주세요.";
             //throw new IllegalArgumentException("비밀번호를 입력해 주세요.");
         }
         else if(password.contains(params.getUsername()) || params.getUsername().contains(password) || !password.matches("^[a-zA-Z0-9]{4,20}$")){
-            response = "비밀번호 형식을 확인해 주세요.";
-            return response;
+            return "비밀번호 형식을 확인해 주세요.";
             //throw new IllegalArgumentException("비밀번호 형식을 확인해 주세요.");
         }
         else if(!password.equals(passwordchk)){
-            response = "비밀번호 재확인이 다릅니다.";
-            return response;
+            return "비밀번호 재확인이 다릅니다.";
             //throw new IllegalArgumentException("비밀번호 재확인이 다릅니다.");
         }else{
-            response = "회원가입이 완료 되었습니다.";
 
             User user = new User(params);
             user.encryptPassword(passwordEncoder);
-
             userRepository.save(user);
-            return response;
+            return "회원가입이 완료 되었습니다.";
         }
     }
 
