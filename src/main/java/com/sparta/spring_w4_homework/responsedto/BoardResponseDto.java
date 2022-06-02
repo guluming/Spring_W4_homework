@@ -15,6 +15,7 @@ public class BoardResponseDto {
     private String userid;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
+    private Long boardlikes;
 
     public BoardResponseDto(Board entity){
         this.id = entity.getId();
@@ -23,5 +24,6 @@ public class BoardResponseDto {
         this.userid = entity.getUserid();
         this.createdAt =entity.getCreatedAt();
         this.modifiedAt = entity.getModifiedAt();
+        this.boardlikes = entity.getBoardlikes();
     }
 }
