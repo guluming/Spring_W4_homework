@@ -26,6 +26,7 @@ public class Board extends Timestamped {
     private String title;
     @Column(nullable = false)
     private String contentb;
+    private Long boardlikes = 0L;
     @Column(nullable = false)
     private String userid;
     @CreatedDate
@@ -43,5 +44,13 @@ public class Board extends Timestamped {
         this.title = params.getTitle();
         this.contentb = params.getContentb();
         this.modifiedAt = LocalDateTime.now();
+    }
+
+    public void likeupdate(){
+        this.boardlikes++;
+    }
+
+    public void unlikeupdate(){
+        this.boardlikes--;
     }
 }
