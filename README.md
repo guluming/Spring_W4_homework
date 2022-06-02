@@ -3,8 +3,7 @@
 
 API 설계
 
-|제목|내용|설명|
-|------|---|---|
-|테스트1|테스트2|테스트3|
-|테스트1|테스트2|테스트3|
-|테스트1|테스트2|테스트3|
+|내용|API|Request|Response|
+|------|---|---|-----|
+|회원가입|/user/signup|username, password, passwordchk|한글 메시지
+|로그인|/user/login|username, password|성공시 : jwt 토큰 / 실패시 메시지
