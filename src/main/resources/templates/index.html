@@ -1,117 +1,32 @@
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><head>
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&amp;display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Jua&amp;display=swap" rel="stylesheet">
+
+    <meta property="og:title" content="나만의 항해 블로그">
+    <meta property="og:description" content="항해하면서 생긴 당신만의 항해일지를 기록해주세요!">
+    <meta property="og:image" content="images/og_noticeboard.png">
 
     <title>나만의 항해일지</title>
-    <!--    font-family: 'Jua', sans-serif;-->
-    <script>
-        $(document).ready(function () {
-            getMessages();
-        })
 
-        function getMessages() {
-            $('#cards-box').empty();
-            $.ajax({
-                type: "GET",
-                url: "/boards/list",
-                data: {},
-                success: function (response) {
-                    for (let i = 0; i < response.length; i++) {
-                        let post = response[i];
-                        let id = post.id;
-                        let name = post.name;
-                        let title = post.title;
-                        let contents = post.contents;
-                        let modifiedAt = post.modifiedAt;
-                        let countReply = post.countReply;
-                        addHTML(id, name, title, contents, modifiedAt, countReply);
-                    }
-                }
-            });
-        }
+    <!--    CSS부분-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <!--    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">-->
 
-        function addHTML(id, name, title, contents, modifiedAt, countReply) {
-            let tempHtml = makeMessage(id, name, title, contents, modifiedAt, countReply);
-            $('#cards-box').append(tempHtml);
-        }
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src=" https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
-        function makeMessage(id, name, title, contents, modifiedAt, countReply) {
-            return `<a href="detail.html?id=${id}">
-                        <div class="card">
-                            <div class="metadata">
-                               <div id="${id}-name" class="name">
-                                   ${name}
-                               </div>
-                               <div class="date">
-                                   ${modifiedAt}
-                               </div>
-                            </div>
-                            <h2 class='title' id="${id}-title">"${title}"</h2>
-                            <div class="contents" id="${id}-contents" >
-                               ${contents}
-                            </div>
-                            <div class="countReply">
-                            댓글 : ${countReply}
-                            </div>
-                        </div>
-                    </a>`;
-        }
-    </script>
+    <!--    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">-->
+
     <style>
-        @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css);
-
-        * {
-            font-family: 'Jua', sans-serif !important;
-        }
-
-        body {
-            margin: 0px;
-        }
-
-        .area-edit {
-            display: none;
-        }
-
-        .wrap {
-            width: 538px;
-            margin: 10px auto;
-            height: 300px;
-        }
-
-        #contents {
-            width: 538px;
-        }
-
-        .to-write {
-            margin-bottom: 250px;
-        }
-
-        li {
-            list-style: none;
-        }
-
-        .to-write button {
-            float: right;
-            position: relative;
-            padding: 10px;
-            width: 150px;
-            font-size: 20px;
-            margin-left: 450px;
-            margin-top: 120px;
-            border-radius: 20px;
-        }
-
-        .background-header {
-            position: fixed;
-            z-index: -1;
-            top: 0px;
-            width: 100%;
-            height: 428px;
-            background-color: #339af0;
-        }
 
         .background-body {
             position: fixed;
@@ -119,203 +34,274 @@
             top: 428px;
             height: 100%;
             width: 100%;
-            background-color: #174978;
+            background-color: #4ea93c;
         }
 
-        .header {
-            margin-top: 70px;
-        }
-
-        .header h2 {
-            /*font-family: 'Noto Sans KR', sans-serif;*/
-            height: 33px;
-            font-size: 42px;
-            font-weight: 500;
-            font-stretch: normal;
-            font-style: normal;
-            line-height: 0.79;
-            letter-spacing: -0.5px;
-            text-align: center;
-            color: #ffffff;
-            margin-top: 40px;
-        }
-
-        .header p {
-            margin: 40px auto;
-            width: 217px;
-            height: 48px;
-            font-family: 'Noto Sans KR', sans-serif;
-            font-size: 16px;
-            font-weight: 500;
-            font-stretch: normal;
-            font-style: normal;
-            line-height: 1.5;
-            letter-spacing: -1.12px;
-            text-align: center;
-            color: #ffffff;
-        }
-
-        textarea.field {
-            width: 502px !important;
-            height: 146px;
-            border-radius: 5px;
-            background-color: #ffffff;
-            border: none;
-            padding: 18px;
-            resize: none;
-        }
-
-        textarea.field::placeholder {
-            width: 216px;
-            height: 16px;
-            font-family: 'Noto Sans KR', sans-serif;
-            font-size: 16px;
-            font-weight: normal;
-            font-stretch: normal;
-            font-style: normal;
-            line-height: 1;
-            letter-spacing: -0.96px;
-            text-align: left;
-            color: #868e96;
-        }
-
-        .card {
-            width: 538px;
-            border-radius: 5px;
-            background-color: #ffffff;
-            margin-bottom: 30px;
-            padding-bottom: 0px;
-        }
-
-        .card .metadata {
-            position: relative;
-            display: flex;
-            font-family: 'Spoqa Han Sans';
-            font-size: 18px;
-            font-weight: normal;
-            font-stretch: normal;
-            font-style: normal;
-            line-height: 1;
-            letter-spacing: -0.77px;
-            text-align: left;
-            color: #adb5bd;
-            height: 14px;
-            padding: 10px 23px;
-        }
-
-        .card .metadata .date {
-            position: absolute;
-            right: 20px;
-        }
-
-        /*.card .metadata .name {*/
-        /*}*/
-
-        .contents {
-            font-size: 21px;
-            padding: 0px 23px;
-            word-wrap: break-word;
-            word-break: break-all;
-        }
-
-        .countReply {
-            padding: 5px 20px;
-            color: #BD63AB;
-            text-align: right;
-        }
-
-        .contents div.edit {
-            display: none;
-        }
-
-        .contents textarea.te-edit {
-            border-right: none;
-            border-top: none;
-            border-left: none;
-            resize: none;
-            border-bottom: 1px solid #212529;
+        .mainBox {
             width: 100%;
-            font-family: 'Spoqa Han Sans';
+            height: 400px;
+
+            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('https://static.spartacodingclub.kr/media/main_carousel/xzp9hk1o96nbakca.png');
+            background-position: center;
+            background-size: cover;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
-        .footer {
-            position: relative;
-            height: 40px;
-            top: 15px;
+        .mainBox > p1 {
+            color: #20a44e;
+            /*font-family: 'Black Han Sans', sans-serif;*/
         }
 
-        .footer img.icon-start-edit {
-            cursor: pointer;
-            position: absolute;
-            bottom: 14px;
-            right: 55px;
-            width: 18px;
-            height: 18px;
+        .buttonBox {
+            text-align: center;
         }
 
-        .footer img.icon-end-edit {
-            cursor: pointer;
-            position: absolute;
-            display: none;
-            bottom: 14px;
-            right: 55px;
-            width: 20px;
-            height: 15px;
+        .buttonBox button {
+            margin: 0 10px;
+            font-family: 'Jua', sans-serif;
         }
 
-        .footer img.icon-delete {
-            cursor: pointer;
-            position: absolute;
-            bottom: 12px;
-            right: 19px;
-            width: 14px;
-            height: 18px;
+        .table {
+            margin-left: auto;
+            margin-right: auto;
+
         }
 
-        #cards-box {
-            margin-top: 12px;
+        .section {
+            background-color: #4ea93c;
         }
 
-        .card h2 {
-            margin-left: 30px;
-        }
-
-        a {
-            text-decoration: none;
-            color: #000000;
-        }
-
-        #logout-text, #login-text, #signup-text {
-            text-decoration: none;
-            color: #FFA547;
-            display: block;
-            text-align: right;
-            font-size: 30px;
-        }
     </style>
 
+    <!--    js부분-->
+    <script>
+
+        // 사용자가 내용을 올바르게 입력하였는지 확인(제목, 내용, 작성자명, 비밀번호 순서)
+        function isValidtitle(title) {
+            if (title == '') {
+                alert('제목을 입력해주세요');
+                return false;
+            }
+            if (title.trim().length > 40) {
+                alert('제목은 공백 포함 40자 이하로 입력해주세요');
+                return false;
+            }
+            return true;
+        }
+
+        function isValidContents(contents) {
+            if (contents == '') {
+                alert('항해일지를 입력해주세요');
+                return false;
+            }
+            if (contents.trim().length > 1000) {
+                alert('항해일지는 공백 포함 1000자 이하로 입력해주세요');
+                return false;
+            }
+            return true;
+        }
+
+        function isValidusername(username) {
+            if (username == '') {
+                alert('작성자를 입력해주세요');
+                return false;
+            }
+            if (username.trim().length > 10) {
+                alert('작성자는 공백 포함 10자 이하로 입력해주세요');
+                return false;
+            }
+            return true;
+        }
+
+        function isValidpassword(password) {
+            if (password == '') {
+                alert('비밀번호를 입력해주세요');
+                return false;
+            }
+            if (password.trim().length > 10) {
+                alert('비밀번호는 공백 포함 10자 이하로 입력해주세요');
+                return false;
+            }
+            return true;
+        }
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        $(document).ready(function () {
+            // HTML 문서를 로드할 때마다 실행합니다.
+            getNoticeboard();
+        })
+
+        function getNoticeboard() {
+            // 1. 기존 메모 내용을 지웁니다.
+            $('#posts-box').empty();
+            // 2. 메모 목록을 불러와서 HTML로 붙입니다.
+            $.ajax({
+                type: 'GET',
+                url: '/api/noticeboards',
+                success: function (response) {
+                    console.log(response);
+
+                    for (let i = 0; i < response.length; i++) {
+                        let notice = response[i];
+                        let id = notice.id;
+                        let title = notice.title;
+                        let username = notice.username;
+                        let modifiedAt = notice.modifiedAt;
+
+                        let temphtml = `<tr>
+                                            <th style="width: 300px">${modifiedAt}</th>
+                                            <td id="${id}-title"><a href="/board/view/${id}">${title}</a></td>
+                                            <td id="${id}-username" style="width: 200px">${username}</td>
+                                        </tr>`
+                        // 2. #posts-box 에 HTML을 붙인다.
+                        $('#posts-box').append(temphtml);
+                    }
+                }
+            })
+        }
+
+        function writeNotice() {
+            // 1. 작성한 메모를 불러옵니다.
+            let title = $('#title').val();
+            let contents = $('#contents').val();
+            let username = $('#username').val();
+            let password = $('#password').val();
+            // let createAt = createAt;
+            // let modifiedAt = ${modifiedAt};
+
+            // 2. 작성한 메모가 올바른지 isValidContents 함수를 통해 확인합니다.
+            if (isValidtitle(title) == false) {
+                return;
+            }
+            if (isValidContents(contents) == false) {
+                return;
+            }
+            if (isValidusername(username) == false) {
+                return;
+            }
+            if (isValidpassword(password) == false) {
+                return;
+            }
+            // 3. 전달할 data JSON으로 만듭니다.
+            let data = {'title': title, 'contents': contents, 'username': username, 'password': password};
+            // 4. POST /api/noticeboards 에 data를 전달합니다.
+            $.ajax({
+                type: "POST",
+                url: "/api/noticeboards",
+                contentType: "application/json", // JSON 형식으로 전달함을 알리기
+                data: JSON.stringify(data),
+                success: function (response) {
+                    alert('항해일지가 성공적으로 작성되었습니다.');
+                    window.location.reload();
+                }
+            });
+        }
+
+
+    </script>
 </head>
 <body>
-<div class="background-header"></div>
-<div class="background-body"></div>
-<div class="wrap">
-    <div class="header">
 
-        <a id="login-text" href="/user/login">
-            로그인
-        </a>
-        <a id="signup-text" href="/user/signup">
-            회원가입
-        </a>
-        <h2>항해99 바다 위 대나무숲<br><br>
+<div class="background-body">
 
-            맘껏 외치세요 무야호!
-        </h2>
+</div>
+
+<div id="wrap">
+    <div class="mainBox">
+        <p1 class="title is-1" style="font-size: 100px">
+            <span style="text-shadow: -3px 0 #ffffff, 0 3px #ffffff, 3px 0 #ffffff, 0 -3px #ffffff;">나만의 항해99 블로그</span>
+        </p1>
+        <div class="buttonBox">
+            <button class="button is-primary is-rounded is-large" style="width: 270px"
+                    onclick='$("#modal-post").addClass("is-active")'>
+                <span style="text-shadow: -2px 0 #000000, 0 2px #000000, 2px 0 #000000, 0 -2px #000000; color: aqua">항해일지 작성</span>
+            </button>
+        </div>
     </div>
-    <div class="to-write">
 
-    </div>
-    <div id="cards-box" class="area-read"></div>
+    <section class="section">
+
+        <!-- 포스트들 뿌려지는 곳 -->
+        <table class="table" style="width: 80%;">
+            <thead>
+            <tr>
+                <th>작 성 날 짜</th>
+                <th>제 목</th>
+                <th>작 성 자</th>
+            </tr>
+            </thead>
+            <tbody id="posts-box">
+            <tr>
+                <th style="width: 300px">1</th>
+                <td><a href="https://en.wikipedia.org/wiki/Leicester_City_F.C." title="Leicester City F.C.">Leicester
+                    City</a>
+                </td>
+                <td style="width: 200px">38</td>
+            </tr>
+            <tr>
+                <th>2</th>
+                <td><a href="https://en.wikipedia.org/wiki/Arsenal_F.C." title="Arsenal F.C.">Arsenal</a></td>
+                <td>38</td>
+            </tr>
+            </tbody>
+        </table>
+        <!-- 포스트들 뿌려지는 곳 -->
+
+    </section>
+
+    <section class="section">
+        <div class="modal" id="modal-post">
+            <div class="modal-background" onclick='$("#modal-post").removeClass("is-active")'></div>
+            <div class="modal-content" style="height: 50%;">
+                <div class="box">
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="field">
+                                <div class="field">
+                                    <div class="control">
+                                        <input id="title" class="input" type="text" placeholder="제목을 입력해주세요">
+                                    </div>
+                                </div>
+                                <p class="control">
+                                    <textarea id="contents" class="textarea" style="height: 320px"
+                                              placeholder="항해일지를 작성해주세요"></textarea>
+                                </p>
+                            </div>
+                            <nav class="level is-mobile">
+                                <div class="level-left">
+                                    <div class="input-group mb-3">
+                                        <div>
+                                            <input id="username" class="input" type="text" placeholder="작성자명">
+                                        </div>
+                                        <div>
+                                            <input id="password" class="input" style="margin-left: 10px" type="text"
+                                                   placeholder="비밀번호 입력">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="level-right">
+                                    <div class="level-item">
+                                        <a class="button is-sparta" onclick="writeNotice()">저장</a>
+                                    </div>
+                                    <div class="level-item">
+                                        <a class="button is-sparta is-outlined"
+                                           onclick='$("#modal-post").removeClass("is-active")'>취소</a>
+                                    </div>
+                                </div>
+                            </nav>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            <button class="modal-close is-large" aria-label="close"
+                    onclick='$("#modal-post").removeClass("is-active")'></button>
+        </div>
+    </section>
+
 </div>
 </body>
 </html>

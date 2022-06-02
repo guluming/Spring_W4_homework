@@ -40,23 +40,23 @@
   </style>
   <script>
 
-    // $(document).ready(function () {
-    //   usercheck();
-    // })
-    //
-    // function usercheck() {
-    //   $.ajax({
-    //     type: "GET",
-    //     url: "/api/usercheck",
-    //     success: function (response) {
-    //       let usercheck = response;
-    //       if (usercheck != "") {
-    //         window.location.replace("/")
-    //         alert("이미 로그인되었습니다'-')/")
-    //       }
-    //     }
-    //   });
-    // }
+    $(document).ready(function () {
+      usercheck();
+    })
+
+    function usercheck() {
+      $.ajax({
+        type: "GET",
+        url: "/user/check",
+        success: function (response) {
+          let usercheck = response;
+          if (usercheck != "") {
+            window.location.replace("/")
+            alert("이미 로그인되었습니다'-')/")
+          }
+        }
+      });
+    }
 
     function check_pw() {
       var pw = document.getElementById('pw').value;
@@ -80,6 +80,7 @@
         }
       }
     }
+
   </script>
 </head>
 <body>
