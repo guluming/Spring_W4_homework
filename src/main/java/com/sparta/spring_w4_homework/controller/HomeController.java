@@ -1,5 +1,6 @@
 package com.sparta.spring_w4_homework.controller;
 
+import com.sparta.spring_w4_homework.security.UserDetailsImpl;
 import com.sparta.spring_w4_homework.service.UserService;
 import lombok.RequiredArgsConstructor;
 
@@ -12,35 +13,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RequiredArgsConstructor
-@RestController
-//@Controller
+//@RestController
+@Controller
 public class HomeController {
 
-//    private final UserService userService;
-
-//    @Autowired
-//    public BoardPageController(UserService userService) {
-//        this.userService = userService;
-//    }
+    private final UserService userService;
 
     //메인 화면
-//    @GetMapping("/")
-//    public String home(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails){
-//        model.addAttribute("username", userDetails.getUsername());
-//        return "index";
-//    }
+    @GetMapping("/")
+    public String home(){
+        return "index";
+    }
 
     //로그인 페이지
-//    @GetMapping("/user/loginView")
-//    public String login() {
-//        return "login";
-//    }
+    @GetMapping("/user/loginView")
+    public String login() {
+        return "login";
+    }
 
     //회원가입 페이지
-//    @GetMapping("/user/signup")
-//    public String signup() {
-//        return "signup";
-//    }
+    @GetMapping("/user/signup")
+    public String signup() {
+        return "signup";
+    }
 
     //회원가입
 //    @PostMapping("/user/signup")
