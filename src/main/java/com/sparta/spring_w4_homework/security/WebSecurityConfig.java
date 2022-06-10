@@ -65,8 +65,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/boards/list/**").permitAll()
                 .antMatchers("/replys/list").permitAll()
                 // '/admin'의 경우 ADMIN 권한이 있는 사용자만 접근이 가능
-                .antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers("/dashboard").hasRole("USER")
+//                .antMatchers("/admin").hasRole("ADMIN")
+//                .antMatchers("/dashboard").hasRole("USER")
 //                .antMatchers("/dashboard").permitAll()
                 // 그 외 모든 요청은 인증과정 필요
                 .anyRequest().authenticated()
