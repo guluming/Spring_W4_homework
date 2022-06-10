@@ -48,4 +48,13 @@ public class UserApiController {
             return new JwtResponseDto("닉네임 또는 패스워드를 확인해주세요");
         }
     }
+
+    @GetMapping("/login/check")
+    public boolean loginCheck(){
+        Object authentication = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        System.out.println(authentication);
+
+        return authentication.equals("anonymousUser");
+    }
 }
